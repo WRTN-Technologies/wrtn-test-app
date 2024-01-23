@@ -1,11 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
+
+import { RNEventSource } from './backend/libs/RNEventSource';
+import ApiService from './backend/services/api.service';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Button
+        title="인사하기"
+        onPress={() => {
+          ApiService.createMessage('안녕하세요').then((result) => {
+            ApiService.getMessages().then((result) => {
+              console.log('result', result);
+            });
+
+            const es = new RNEventSource(result.id);
+
+            es.addEventListener('open', () => {
+              console.log('open');
+            });
+
+            es.addEventListener('message', (data) => {
+              console.log('message', data);
+              if (data === '[DONE]') {
+                //
+              }
+            });
+          });
+        }}
+      />
     </View>
   );
 }

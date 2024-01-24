@@ -1,6 +1,9 @@
 import { IMessage } from '../types';
 import { wait } from '../utils';
 
+/**
+ * 해당 파일은 절대 수정하지 말아주세요.
+ */
 class Database {
   private _id = 0;
 
@@ -21,9 +24,8 @@ class Database {
 
   public update(id: number, data: Partial<IMessage>): IMessage {
     const index = this.list.findIndex((v) => v.id === id);
-    const _data = Object.assign(this.list[index], data);
-    this.list[index] = _data;
-    return _data;
+    if (index === -1) throw new Error('invalid id');
+    return Object.assign(this.list[index], data);
   }
 }
 

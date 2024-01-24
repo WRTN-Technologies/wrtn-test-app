@@ -1,6 +1,9 @@
 import Database from '../database';
 import { IMessage } from '../types';
 
+/**
+ * 해당 파일은 절대 수정하지 말아주세요.
+ */
 class ApiService {
   /**
    * 새로운 메시지를 생성 합니다.
